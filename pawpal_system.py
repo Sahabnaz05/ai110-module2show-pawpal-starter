@@ -10,10 +10,10 @@ class Task:
     duration: int
     priority: str
     frequency: str
-    completed: bool
+    completed: bool = False
 
     def mark_complete(self) -> None:
-        pass
+        self.completed = True
 
 
 @dataclass
@@ -23,10 +23,10 @@ class Pet:
     tasks: list[Task] = field(default_factory=list)
 
     def add_task(self, task: Task) -> None:
-        pass
+        self.tasks.append(task)
 
     def list_tasks(self) -> list[Task]:
-        pass
+        return self.tasks
 
 
 class Owner:
@@ -38,10 +38,10 @@ class Owner:
         self.pets = pets if pets is not None else []
 
     def add_pet(self, pet: Pet) -> None:
-        pass
+        self.pets.append(pet)
 
     def get_all_tasks(self) -> list[Task]:
-        pass
+        return [task for pet in self.pets for task in pet.list_tasks()]
 
 
 class Scheduler:
@@ -59,5 +59,5 @@ class Scheduler:
     def detect_conflicts(self) -> None:
         pass
 
-    def generate_schedule(self) -> None:
-        pass
+    def generate_schedule(self) -> list[Task]:
+        return self.owner.get_all_tasks()
