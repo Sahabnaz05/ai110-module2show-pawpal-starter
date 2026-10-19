@@ -30,6 +30,8 @@ Generate and view a daily schedule based on available time, priorities, and owne
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
 
+After reviewing my initial class skeletons with AI, I decided to keep the original design because the four classes already have clear responsibilities and relationships. The review highlighted that Scheduler should retrieve tasks through Owner.get_all_tasks() so it can organize tasks across multiple pets. I will implement this relationship in the next phase.
+
 ---
 
 ## 2. Scheduling Logic and Tradeoffs
