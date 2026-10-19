@@ -38,6 +38,8 @@ After reviewing my initial class skeletons with AI, I decided to keep the origin
 
 My scheduler considers the selected schedule date, task completion status, task duration, available minutes, priority, and recurrence frequency. It supports once, daily, and weekly tasks. Completed tasks are left out. When there is a time limit, the scheduler considers high-priority tasks first and selects tasks that fit; it then displays the selected tasks in chronological order, using priority to break time ties. Owner preferences are not part of the current implementation.
 
+When a daily or weekly task is completed in the app, the owning Pet marks it complete and creates the next occurrence one day or seven days later, respectively. If that matching next occurrence already exists, it is reused rather than duplicated. Completing a one-time task only marks it complete.
+
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
@@ -70,7 +72,7 @@ One AI-generated implementation I reviewed needed a correction in the order of s
 
 - What behaviors did you test?
 - Why were these tests important?
-I tested eight behaviors using pytest: marking tasks complete, adding tasks to pets, sorting by time and priority, excluding completed tasks, selecting tasks within an available-time budget, daily and weekly recurrence, detecting overlapping tasks across pets, and excluding conflicts involving tasks left out by the time limit. All eight tests passed. These tests were important because they helped verify that the scheduler followed the main project requirements.
+I tested ten behaviors using pytest: marking tasks complete, adding tasks to pets, sorting by time and priority, excluding completed tasks, selecting tasks within an available-time budget, daily and weekly recurrence in schedules, detecting overlapping tasks across pets, excluding conflicts involving tasks left out by the time limit, and creating the next daily or weekly task occurrence when a recurring task is completed. The daily test checks that the next task is due tomorrow, and the weekly test checks that it is due seven days later; both also check that completing the same original task again does not add a duplicate. All ten tests passed. These tests were important because they helped verify that the scheduler and recurring completion behavior followed the project requirements.
 
 I also tested the Streamlit interface manually by creating tasks for multiple pets, generating schedules with different available-time limits, and checking that overlapping tasks from different pets produced a conflict warning.
 **b. Confidence**
@@ -78,7 +80,7 @@ I also tested the Streamlit interface manually by creating tasks for multiple pe
 - How confident are you that your scheduler works correctly?
 - What edge cases would you test next if you had more time?
 
-I am fairly confident that my scheduler works correctly for the main requirements because all eight pytest tests passed. I also tested the Streamlit interface manually and confirmed that it displayed overlapping tasks from different pets. If I had more time, I would test additional edge cases, such as zero available minutes, tasks that exactly fit the remaining time, and tasks that start exactly when another task ends.
+I am fairly confident that my scheduler works correctly for the main requirements because all ten pytest tests passed. I also tested the Streamlit interface manually and confirmed that it displayed overlapping tasks from different pets. If I had more time, I would test additional edge cases, such as zero available minutes, tasks that exactly fit the remaining time, and tasks that start exactly when another task ends.
 
 
 ---

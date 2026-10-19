@@ -139,3 +139,33 @@ def test_conflicts_exclude_tasks_omitted_by_available_minutes_limit() -> None:
 
     assert schedule == [selected_task]
     assert scheduler.conflicts == []
+
+
+def test_completing_daily_task_creates_tomorrows_occurrence() -> None:
+    task = Task("Morning walk", datetime(2026, 10, 19, 8, 0), 30, "high", "daily")
+    pet = Pet("Mochi", "dog", [task])
+
+    next_task = pet.complete_task(task)
+
+    assert task.completed is True
+    assert next_task is not None
+    assert next_task.due_time == datetime(2026, 10, 20, 8, 0)
+    assert next_task.completed is False
+    assert pet.list_tasks().count(next_task) == 1
+    assert pet.complete_task(task) is next_task
+    assert pet.list_tasks().count(next_task) == 1
+
+
+def test_completing_weekly_task_creates_occurrence_seven_days_later() -> None:
+    task = Task("Weekly grooming", datetime(2026, 10, 19, 9, 30), 45, "medium", "weekly")
+    pet = Pet("Mochi", "dog", [task])
+
+    next_task = pet.complete_task(task)
+
+    assert task.completed is True
+    assert next_task is not None
+    assert next_task.due_time == datetime(2026, 10, 26, 9, 30)
+    assert next_task.completed is False
+    assert pet.list_tasks().count(next_task) == 1
+    assert pet.complete_task(task) is next_task
+    assert pet.list_tasks().count(next_task) == 1

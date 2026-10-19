@@ -122,11 +122,13 @@ if all_tasks:
             mark_complete_submitted = st.form_submit_button("Mark complete")
 
         if mark_complete_submitted:
-            all_tasks[selected_task_index].mark_complete()
+            task_to_complete = all_tasks[selected_task_index]
+            pet_by_task_id[id(task_to_complete)].complete_task(task_to_complete)
             st.session_state.schedule = None
             st.session_state.schedule_conflicts = []
             st.session_state.schedule_for_date = None
             st.session_state.schedule_for_minutes = None
+            st.rerun()
     else:
         st.info("All tasks are marked complete.")
 else:

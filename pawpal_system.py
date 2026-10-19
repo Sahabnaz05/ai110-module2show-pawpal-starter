@@ -31,6 +31,41 @@ class Pet:
     def list_tasks(self) -> list[Task]:
         return self.tasks
 
+    def complete_task(self, task: Task) -> Optional[Task]:
+        if not any(existing_task is task for existing_task in self.tasks):
+            raise ValueError("Task does not belong to this pet.")
+
+        if task.frequency == "daily":
+            next_due_time = task.due_time + timedelta(days=1)
+        elif task.frequency == "weekly":
+            next_due_time = task.due_time + timedelta(days=7)
+        elif task.frequency == "once":
+            task.mark_complete()
+            return None
+        else:
+            raise ValueError(f"Unsupported task frequency: {task.frequency}")
+
+        task.mark_complete()
+        for existing_task in self.tasks:
+            if (
+                existing_task.description == task.description
+                and existing_task.due_time == next_due_time
+                and existing_task.duration == task.duration
+                and existing_task.priority == task.priority
+                and existing_task.frequency == task.frequency
+            ):
+                return existing_task
+
+        next_task = Task(
+            description=task.description,
+            due_time=next_due_time,
+            duration=task.duration,
+            priority=task.priority,
+            frequency=task.frequency,
+        )
+        self.add_task(next_task)
+        return next_task
+
 
 class Owner:
     name: str

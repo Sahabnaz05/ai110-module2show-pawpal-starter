@@ -13,6 +13,7 @@ classDiagram
         +tasks: List~Task~
         +add_task(task: Task): None
         +list_tasks(): List~Task~
+        +complete_task(task: Task): Optional~Task~
     }
 
     class Task {
