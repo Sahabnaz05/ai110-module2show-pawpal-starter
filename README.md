@@ -7,7 +7,7 @@ A busy pet owner needs help staying consistent with pet care. They want an assis
 - Track pet care tasks (walks, feeding, meds, enrichment, grooming, etc.)
 - Consider constraints (time available, priority, owner preferences)
 - Produce a daily plan and explain why it chose that plan
-The project includes a UML design, Python classes for owners, pets, tasks, and scheduling, a Streamlit interface, and tests for core behaviors. The final UML diagram is [uml_final.mmd](diagrams/uml_final.mmd); the original draft remains in [uml_draft.mmd](diagrams/uml_draft.mmd).
+The projecgit statust includes a UML design, Python classes for owners, pets, tasks, and scheduling, a Streamlit interface, and tests for core behaviors. The final UML diagram is [uml_final.mmd](diagrams/uml_final.mmd); the original draft remains in [uml_draft.mmd](diagrams/uml_draft.mmd).
 
 ## What you will build
 
