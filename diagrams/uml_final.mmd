@@ -1,0 +1,41 @@
+classDiagram
+    class Owner {
+        +name: str
+        +pets: List~Pet~
+        +__init__(name: str, pets: Optional~List~Pet~~ = None)
+        +add_pet(pet: Pet): None
+        +get_all_tasks(): List~Task~
+    }
+
+    class Pet {
+        +name: str
+        +species: str
+        +tasks: List~Task~
+        +add_task(task: Task): None
+        +list_tasks(): List~Task~
+    }
+
+    class Task {
+        +description: str
+        +due_time: datetime
+        +duration: int
+        +priority: str
+        +frequency: str
+        +completed: bool = False
+        +mark_complete(): None
+    }
+
+    class Scheduler {
+        +owner: Owner
+        +conflicts: List~Tuple~Task, Task~~
+        +__init__(owner: Owner): None
+        +sort_by_time(tasks: Optional~List~Task~~ = None, schedule_date: Optional~date~ = None): List~Task~
+        +filter_tasks(available_minutes: Optional~int~ = None, tasks: Optional~List~Task~~ = None): List~Task~
+        +detect_conflicts(tasks: Optional~List~Task~~ = None, schedule_date: Optional~date~ = None): List~Tuple~Task, Task~~
+        +generate_schedule(schedule_date: Optional~date~ = None, available_minutes: Optional~int~ = None): List~Task~
+        -_occurs_on(task: Task, schedule_date: date): bool
+    }
+
+    Owner "1" o-- "0..*" Pet : owns
+    Pet "1" *-- "0..*" Task : has
+    Scheduler --> Owner : schedules tasks across all pets
